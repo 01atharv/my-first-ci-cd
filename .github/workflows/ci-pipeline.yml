@@ -1,0 +1,32 @@
+name: CI Pipeline 
+
+on:
+  push:
+    branches:["main"]
+
+jobs:
+  build:
+    runs-on:ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: instll dependencies
+        run: npm install 
+
+      - name: run tests
+        run: npm test
+
+      - name: Build docker image 
+        run: |
+           echo "building docker image..."
+           docker build -t my0furst-ci-cd-app . 
+           echo " docker image built successfully"
+      
+        
